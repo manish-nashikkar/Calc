@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Simple Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+    }
+    .calculator {
+      max-width: 200px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      border-radius: 5px;
+    }
+    .input {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 5px;
+      font-size: 16px;
+    }
+    .buttons {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 5px;
+    }
+    .button {
+      padding: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      text-align: center;
+      background-color: #f2f2f2;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    .button:hover {
+      background-color: #e0e0e0;
+    }
+  </style>
+</head>
+<body>
+  <div class="calculator">
+    <input type="text" class="input" id="display" disabled>
+    <div class="buttons">
+      <div class="button" onclick="clearDisplay()">C</div>
+      <div class="button" onclick="appendNumber(7)">7</div>
+      <div class="button" onclick="appendNumber(8)">8</div>
+      <div class="button" onclick="appendNumber(9)">9</div>
+      <div class="button" onclick="appendOperator('+')">+</div>
+      <div class="button" onclick="appendNumber(4)">4</div>
+      <div class="button" onclick="appendNumber(5)">5</div>
+      <div class="button" onclick="appendNumber(6)">6</div>
+      <div class="button" onclick="appendOperator('-')">-</div>
+      <div class="button" onclick="appendNumber(3)">3</div>
+      <div class="button" onclick="appendNumber(2)">2</div>
+      <div class="button" onclick="appendNumber(1)">1</div>
+      <div class="button" onclick="appendOperator('*')">*</div>
+      <div class="button" onclick="appendNumber(0)">0</div>
+      <div class="button" onclick="appendOperator('.')">.</div>
+      <div class="button" onclick="calculate()">=</div>
+      <div class="button" onclick="appendOperator('/')">/</div>
+    </div>
+  </div>
+
+  <script>
+    let displayValue = "";
+
+    function updateDisplay() {
+      document.getElementById("display").value = displayValue;
+    }
+
+    function appendNumber(number) {
+      displayValue += number;
+      updateDisplay();
+    }
+
+    function appendOperator(operator) {
+      if (displayValue === "") return;
+      if (displayValue[displayValue.length - 1] === ".") {
+        displayValue = displayValue.slice(0, -1);
+      }
+      displayValue += operator;
+      updateDisplay();
+    }
+
+    function calculate() {
+      if (displayValue === "") return;
+      if (displayValue[displayValue.length - 1] === ".") {
+        displayValue = displayValue.slice(0, -1);
+      }
+      try {
+        displayValue = eval(displayValue).toString();
+      } catch (error) {
+        displayValue = "Error";
+      }
+      updateDisplay();
+    }
+
+    function clearDisplay() {
+      displayValue = "";
+      updateDisplay();
+    }
+  </script>
+</body>
+</html>
